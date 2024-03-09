@@ -1,0 +1,93 @@
+.sidebar {
+    grid-area: "sidebar";
+    display: grid;
+    grid-row: 50% 50%;
+    grid-template-areas: 
+        "buttons"
+        "time"
+    ;
+    border-right: 2px solid #E1E1E1;
+}
+
+.buttons_sidebar {
+    grid-area: buttons;
+}
+
+.button_sidebar {
+    width: 90%;
+    height: 10%;
+    border: 2px solid #D7D7D7;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    transition: 1s ease-out;
+    font-weight: 700;
+    margin: 20px auto;
+    font-size: 100%;
+}
+
+.button_sidebar img {
+    width: 70%;
+    height: 80%;
+    margin: 3% 0 0 3%;
+}
+
+.name_button {
+    margin: 5% 0 0 0 ;
+}
+
+.button_sidebar:hover {
+    background-color: rgb(75, 202, 224);
+}
+
+.time {
+    margin: 30% auto; 
+    width: 90%;
+    height: 25%;
+    align-self: end;
+}
+
+.total_time {
+    max-width: 100%;
+    height: 100%;
+    border: 2px solid #D7D7D7;
+    border-radius: 10px;
+    padding: 10px;
+    grid-area: time;
+}
+
+.text_time {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.total_hours {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #B2B2B2;
+}
+
+.hours {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10% 0 0 0;
+}
+
+.plus_proc {
+    color: green;
+    display: grid;
+    grid-template-columns: 15% 50%;
+    margin: 15% 0 0 0;
+}
+
+.plus_proc img {
+    width: 100%;
+    height: 100%;
+}
+
+.procent {
+    margin: 5% 0 0 0;
+}
