@@ -4,6 +4,7 @@
     width: 97%;
     background-color: #fff;
     border-radius: 5px;
+    margin: 20px 0;
 }
 
 .header_task {
@@ -14,30 +15,32 @@
 
 .wrapper_tema {
     display: inline-block;
-    width: 25%;
+    width: 40%;
     height: 80%;
     background-color: #FDEDD2;
     color: #F3B615;
     border-radius: 10vh;
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0 0 0 5%;
+    margin: 0 0 10% 5%;
 }
 
 .other_function {
-    height: 5%;
-    left: 30%;
+    width: 100px;
+    /* height: 5vh; */
     display: inline-block;
     background-color: #fff;
     border-radius: 5px;
     border: 1px solid #D7D7D7;
-    position: absolute;
     opacity: 0;
-    width: 0;
     animation: showModal 0.3s forwards;
+    font-size: 90%;
+    padding: 5px;
+    margin: 0 0 0 10vh ;
 }
 
 .show {
     animation: showModal 0.3s forwards;
+    width: 100px;
 }
 
 @keyframes showModal {
@@ -100,6 +103,9 @@
     margin: 1% 3% 0 0;
 }
 
+.wrapper_name_task {
+    margin: 5% 0 0 0;
+}
 .name_task {
     font-size: 16px;
     font-family: Arial, Helvetica, sans-serif;
@@ -107,6 +113,8 @@
     margin: 5% 0 0 5%;
     cursor: pointer;
     transition: 0.3s ease;
+    text-decoration: none;
+    color: #000;
 }
 
 .name_task:hover {

@@ -1,0 +1,123 @@
+.wrappper_edit_task {
+    padding: 5vh;
+    background-color: #F7F7F7;
+    display: grid;
+    grid-template-rows: 10vh 30vh 30vh 30vh;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: scroll;
+}
+
+.wrapper_name {
+    position: fixed;
+}
+
+.name_task {
+    font-size: 22px;
+    font-weight: bold;
+    display: inline-block;
+    height: 3vh;
+    white-space: pre-wrap;
+}
+
+.wrapper_cell {
+    margin: 0 0 5vh 0;
+    width: 25vh;
+}
+
+.name_cell {
+    font-size: 3vh;
+    font-weight: 550;
+    display: inline-block;
+}
+
+.add_button {
+    width: auto;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: #70D0E1;
+    padding: 5px 10px;
+    float: right;
+    cursor: pointer;
+}
+
+.editing_name {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    height: 3vh;
+    height: auto;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap;
+}
+
+.editing_point {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    height: 16px;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap; 
+}
+
+.edit_task {
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.edit_task button {
+    background-color: #fff;
+    height: 4vh;
+    border: none;
+    cursor: pointer;
+}
+
+.edit_task img {
+    width: 4vh;
+    height: 4vh;
+}
+
+.editing_description {
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    height: auto;
+    min-height: 50px;
+    max-height: 200px;
+}
+
+.description_text {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    height: auto;
+}
+
+.point  img{
+    width: 2vh;
+    height: 2vh;
+    cursor: pointer;
+    margin : 0 0 0 5px;
+}
+
+.time_item img {
+    width: 2vh;
+    height: 2vh;
+    cursor: pointer;
+    margin : 0 0 0 5px;
+}
+

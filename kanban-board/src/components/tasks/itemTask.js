@@ -1,25 +1,72 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./itemTask.module.css"
+import Context from "../../context/context";
+import { Link } from "react-router-dom";
+import { Reorder } from "framer-motion";
 
-const ItemTask = ({modalWindow, handleModalWindow}) => {
-    return (
-        <div className={styles.task_content}>
+const ItemTask = ({points, name, description, topic, idParent, item}) => {
+  const dataContext = useContext(Context)
+
+  const [modalWindow, setModalWindow] = useState(false)
+  const [startDelete, setStartDelete] = useState(false)
+  const [keyRerender, setKeyRerender] = useState(1)
+  const [id, setId] = useState(idParent)
+  const [readyItems, setReadyItems] = useState(0)
+
+  useEffect(() => {
+    setId(idParent)
+  }, [idParent])
+
+  useEffect(() => {
+    if (startDelete) {
+      dataContext.deleteTaskPlan(id)
+    }
+  }, [startDelete])
+
+  useEffect(() => {
+    let countReadyPoint = points.filter(item => item.checked === true).length
+    setReadyItems(countReadyPoint)
+  })
+
+  const handleDelete = () => {
+    setKeyRerender(keyRerender + 1)
+    setStartDelete(true)
+  }
+
+  const handleChange = async (id) => {
+    dataContext.changeCurrentId(id)
+  }
+
+  return (
+    <Reorder.Item as="div" value={item}>
+      <div 
+          key={keyRerender}
+          className={styles.task_content}
+        >
         <div className={styles.header_task}>
           <div className={styles.wrapper_tema}>
-            <div className={styles.tema}>UX design</div>
+            <div className={styles.tema}>{topic}</div>
           </div>
           <div className={`${styles.other_function} ${modalWindow ? styles.show : styles.none}`}>
-            <div className={styles.button_other}>Delete</div>
+            <div className={styles.button_other} onClick={handleDelete}>Delete</div>
             <hr/>
-            <div className={styles.button_other}>Edit</div>
+            <div onClick={() => {
+                handleChange(id)
+              }}>
+              <Link to="/editTask" className={styles.button_other}>Edit</Link>
+            </div>
           </div>
-          <img src="https://cdn-icons-png.flaticon.com/512/64/64576.png" onClick={handleModalWindow}/>
+          <img src="https://cdn-icons-png.flaticon.com/512/64/64576.png" onClick={() => setModalWindow(!modalWindow)}/>
         </div>
-        <div className={styles.name_task}>First design concept</div>
-        <div className={styles.details_task}>first design concept design concept design concept design concept</div>
+        <div className={styles.wrapper_name_task} onClick={() => {
+                handleChange(id)
+              }}>
+          <Link to="/editTask" className={styles.name_task}>{name}</Link>
+        </div>
+        <div className={styles.details_task}>{description}</div>
         <div className={styles.task_points}>
           <img src="https://cdn.icon-icons.com/icons2/3868/PNG/512/task_icon_243099.png"/>
-          <div className={styles.already_points}>0/4</div>
+          <div className={styles.already_points}>{readyItems}/{points.length}</div>
         </div>
         <div className={styles.footer_task}>
           <div className={styles.wrapper_wrapper_avatar}>
@@ -43,7 +90,9 @@ const ItemTask = ({modalWindow, handleModalWindow}) => {
           </div>
         </div>
       </div>
-    )
+    </Reorder.Item>
+
+  )
 }
 
 export default ItemTask

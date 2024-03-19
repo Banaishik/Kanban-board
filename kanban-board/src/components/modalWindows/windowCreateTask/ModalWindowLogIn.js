@@ -1,70 +1,83 @@
-import React, { useState} from 'react';
+import React, { useContext, useState} from 'react';
 import styles from "./modalWindow.module.css"
+import Context from '../../../context/context';
 
-const ModalWindowLogIn = ({open, handleModal}) => {
-    const [check, setChek] = useState(false)
-    const [gmail, setGmail] = useState(null)
-    const [password, setPassword] = useState(null)
+const ModalWindowLogIn = () => {
+    const [topic, setTopic] = useState("topic")
+    const [name, setName] = useState(null)
+    const [description, setDescription] = useState(null)
     const [etnryNull, setEntryNull] = useState(0)
 
-    const handleCheck = () => {
-        setChek(true)
+    const topics = [
+        "Web development",
+        "Construction",
+        "Business",
+        "Sport",
+        "Studies"
+    ]
+
+    const dataContext = useContext(Context)
+
+    const handleTopic = (topic) => {
+        setTopic(topic)
     }
 
-    const handleGmail = (e) => {
-        setGmail(e.target.value)
+    const handleName = (e) => {
+        setName(e.target.value)
     }
 
-    const handlePassword = (e) => {
-        setPassword(e.target.value)
+    const handleDescription = (e) => {
+        setDescription(e.target.value)
     }
 
     const checkInputs = () => {
-        if (gmail === null) {
+        if (name === null) {
             setEntryNull(1)
-        } else if (password === null) {
+        } else if (description === null) {
             setEntryNull(2)
         } else {
-            handleCheck()
+            dataContext.handleOpenWindow()
+            dataContext.addTaskPlan(name, description, topic)
+            handleTopic('topic')
+            setName('')
+            setDescription('')
+            setEntryNull(0)
         }
     }
 
     return (
-        <div className={open ? styles.wrapper_modal : styles.wrapper_close}>
+        <div className={dataContext.openCreateWindow ? styles.wrapper_modal : styles.wrapper_close}>
             <div>
                 <div className={styles.title}>
                     <span>Add new Task</span>
-                    <span className={styles.close_create_modal} onClick={handleModal}>&#10006;</span>
+                    <span className={styles.close_create_modal} onClick={dataContext.handleOpenWindow}>&#10006;</span>
                 </div>
                 <div className={styles.description}>
                     to create a new task, enter the name of the task and briefly describe it
                 </div>
                 <span>Name task</span>
                 <div>
-                    <input onChange={handleGmail} className={etnryNull === 1 ? styles.input_error : styles.input_normal} placeholder='name task'/>
+                    <input value={name} onChange={handleName} className={etnryNull === 1 ? styles.input_error : styles.input_normal} placeholder='name task'/>
                 </div>
                 <span>Description</span>
                 <div>
-                    <input onChange={handlePassword} className={etnryNull === 2 ? styles.input_error : styles.input_normal} placeholder='description'/>
+                    <input value={description} onChange={handleDescription} className={etnryNull === 2 ? styles.input_error : styles.input_normal} placeholder='description'/>
                 </div>
                 <div>
                     <span>Task topic</span>
                     <ul className={styles.topics_menu}>
                         <li>
-                            <a>Topic</a>
+                            <a>{topic}</a>
                             <ul>
-                                <li><a>Web development</a></li>
-                                <li><a>Construction</a></li>
-                                <li><a>Business</a></li>
-                                <li><a>Sport</a></li>
-                                <li><a>Studies</a></li>
+                                {
+                                  topics.map(item => <li><a onClick={() => handleTopic(item)}>{item}</a></li>)
+                                }
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <button className={styles.next} onClick={() => {
                     checkInputs()
-                    handleModal()
                 }}>Add Task</button>
             </div>
         </div>

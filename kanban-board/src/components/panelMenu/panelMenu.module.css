@@ -16,6 +16,8 @@
     margin:  0 10px;
     display: flex;
     margin-top: auto;
+    color: #000;
+    text-decoration: none;
 }
 
 .button_panel:hover {
