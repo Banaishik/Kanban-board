@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./itemTask.module.css"
-import Context from "../../context/context";
+import Context from "../../../context/context";
 import { Link } from "react-router-dom";
 import { Reorder } from "framer-motion";
 
@@ -33,7 +33,7 @@ const ItemTask = ({points, name, description, topic, idParent, item}) => {
     setStartDelete(true)
   }
 
-  const handleChange = async (id) => {
+  const handleChange = (id) => {
     dataContext.changeCurrentId(id)
   }
 
@@ -49,12 +49,6 @@ const ItemTask = ({points, name, description, topic, idParent, item}) => {
           </div>
           <div className={`${styles.other_function} ${modalWindow ? styles.show : styles.none}`}>
             <div className={styles.button_other} onClick={handleDelete}>Delete</div>
-            <hr/>
-            <div onClick={() => {
-                handleChange(id)
-              }}>
-              <Link to="/editTask" className={styles.button_other}>Edit</Link>
-            </div>
           </div>
           <img src="https://cdn-icons-png.flaticon.com/512/64/64576.png" onClick={() => setModalWindow(!modalWindow)}/>
         </div>

@@ -1,8 +1,11 @@
-import React, { useContext, useState} from 'react';
-import styles from "./modalWindow.module.css"
+import React, { useContext, useRef, useState, useEffect} from 'react';
 import Context from '../../../context/context';
 
+import styles from "./modalWindow.module.css"
+
 const ModalWindowLogIn = () => {
+    const dataContext = useContext(Context)
+
     const [topic, setTopic] = useState("topic")
     const [name, setName] = useState(null)
     const [description, setDescription] = useState(null)
@@ -15,8 +18,6 @@ const ModalWindowLogIn = () => {
         "Sport",
         "Studies"
     ]
-
-    const dataContext = useContext(Context)
 
     const handleTopic = (topic) => {
         setTopic(topic)

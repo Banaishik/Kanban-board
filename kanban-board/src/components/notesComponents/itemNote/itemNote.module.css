@@ -1,0 +1,50 @@
+
+.item_note_wrapper {
+    width: 90%;
+    height: 15vh;
+    border: 1px solid #D7D7D7;
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 3%;
+    font-family: "Open Sans", sans-serif;
+    background-color: white;
+}
+
+.name_note {
+    display: inline-block;
+    cursor: pointer;
+    transition: 0.5s;
+    text-decoration: none;
+    color: #000;
+    font-size: 150%;
+    font-weight: 600;
+    margin: 2% 0 3% 0;
+}
+
+.other {
+    display: inline-block;
+    float: right;
+    cursor: pointer;
+}
+
+.other img{
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 20px;
+}
+
+.description {
+    overflow: hidden;
+    width: 80%;
+    height: 40%;
+    text-overflow: ellipsis;
+    color: #898686;
+}
+
+.description span {
+    overflow: hidden;
+}
+
+.name_note:hover {
+    color: rgb(123, 114, 114);
+}

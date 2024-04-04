@@ -1,3 +1,11 @@
+/* .wrapper_none {
+    display: none; 
+} */
+
+/* .wrapper {
+    display: block;
+} */
+
 .wrapper_modal {
     height: 70vh;
     width: 50vh;
@@ -6,7 +14,7 @@
     position: fixed;
     background-color: white;
     font-family: sans-serif;
-    box-shadow: 0px 0px 41px -10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 41px -10px #00000080;
     animation-name: openModalWindow;
     animation-duration: 0.5s;
     margin: 5vh 80vh;
@@ -18,10 +26,12 @@
     padding: 10px;
     border-radius: 10px;
     position: fixed;
+    display: none;
     background-color: white;
     font-family: sans-serif;
     box-shadow: 0px 0px 41px -10px rgba(0, 0, 0, 0.5);
     animation-name: closeModalWindow;
+    top: -100%;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
     margin: 5vh 80vh;

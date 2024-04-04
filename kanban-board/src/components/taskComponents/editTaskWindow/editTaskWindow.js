@@ -1,21 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./editTaskWindow.module.css"
-import Context from "../../context/context";
+import Context from "../../../context/context";
 
 const EditTaskWindow = () => {
     const [editing, setEding] = useState(false)
     const [task, setTask] = useState()
     const dataContext = useContext(Context)
+    const [locationTask, setLocationTask] = useState('')
+    const [updateState, setUpdateState] = useState(0)
 
     const handleEdit = () => {
         setEding(!editing)
     }
 
     const handleName = (e) => {
-        setTask({
-            ...task,
-            name : e.target.value
-        })
+        setTask(prevTask => ({
+            ...prevTask,
+            name: e.target.value
+        }));
 
         e.target.style.height = 'auto';
         e.target.style.height = e.target.scrollHeight + 'px';
@@ -43,10 +45,11 @@ const EditTaskWindow = () => {
             return item
         })
 
-        setTask({
-            ...task, 
-            points : alteredPoints
-        })
+        setTask(newTask => ({
+            ...newTask, 
+            points: alteredPoints
+        }))
+        setUpdateState(updateState +1)
     }
 
     const handleNamePoint = (id, e) => {
@@ -61,7 +64,7 @@ const EditTaskWindow = () => {
             ...task, 
             points: alteredPoints
         });
-    };
+    }
 
     const handleHour = (id, e) => {
         const newArray = task.dates.map(item => {
@@ -108,6 +111,7 @@ const EditTaskWindow = () => {
             ...task,
             points : newPoints
         })
+        setUpdateState(updateState + 1)
     }
 
     const addDay = () => {
@@ -125,11 +129,51 @@ const EditTaskWindow = () => {
             ...task,
             dates : newListDate
         })
+        setUpdateState(updateState + 1)
+    }
+
+    const saveDataTask = () => {
+        if (locationTask === 'plan') {
+            dataContext.changeTaskPlan(task)
+        } else if (locationTask === 'process') {
+            dataContext.changeTaskProcess(task)
+        } else if (locationTask === 'done') {
+            dataContext.changeTaskDone(task)
+        }
     }
 
     useEffect(() => {
-        setTask(...dataContext.state.plan.filter(item => item.id === dataContext.state.currentEditingTask));
-    }, [])
+        let task = null;
+    
+        if (dataContext.state.stateTasks.currentEditingTask) {
+            const taskId = dataContext.state.stateTasks.currentEditingTask;
+    
+            const planTask = dataContext.state.stateTasks.plan.find(item => item.id === taskId);
+            const processTask = dataContext.state.stateTasks.process.find(item => item.id === taskId);
+            const doneTask = dataContext.state.stateTasks.done.find(item => item.id === taskId);
+    
+            if (planTask) {
+                task = planTask;
+                setLocationTask('plan')
+            } else if (processTask) {
+                task = processTask;
+                setLocationTask('process')
+            } else if (doneTask) {
+                task = doneTask;
+                setLocationTask('done')
+            }
+    
+            if (task) {
+                setTask(task);
+            }
+        }
+    }, [dataContext.state.stateTasks.currentEditingTask, dataContext.state.stateTasks.plan, dataContext.state.stateTasks.process, dataContext.state.stateTasks.done]);
+
+    useEffect(() => {
+        if (updateState > 0) {
+           saveDataTask()
+        }
+    }, [updateState])
 
     return (
         task ? (
@@ -137,7 +181,7 @@ const EditTaskWindow = () => {
                 <div className="wrapper_name">
                     {
                         editing ? (
-                            <input onChange={handleName} className={styles.editing_name} value={task.name}></input>
+                            <input onChange={(e) => handleName(e)} className={styles.editing_name} value={task.name}></input>
                         ) : (
                             <span className={styles.name_task}>{task.name}</span>
                         )
@@ -147,7 +191,7 @@ const EditTaskWindow = () => {
                             <div 
                                 onClick={() => {
                                     handleEdit()
-                                    dataContext.changeTaskPlan(task)
+                                    setUpdateState(updateState + 1)
                                 }}
                                 className={styles.edit_task}
                             >
@@ -200,7 +244,9 @@ const EditTaskWindow = () => {
                             task.points.map(item => {
                                 return (
                                     <div className={styles.point}>
-                                        <li>{item.namePoint}</li>
+                                        {/* <li>{item.namePoint}</li> */}
+                                        <input type="checkbox" onChange={() => handleCheckBox(item.id)} checked={item.checked}></input>
+                                        <span>{item.namePoint}</span>
                                     </div>
                                 )
                             })
@@ -219,6 +265,7 @@ const EditTaskWindow = () => {
                                     <div className={styles.time_item}>
                                         <span>{date.time} :<input onChange={(e) => handleHour(date.id, e)} value={date.hours} type="number" id="tentacles" name="tentacles" min="1" max="24"/></span>
                                         <img src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" onClick={() => deleteTime(date.id)} />
+                                    
                                     </div>
                                 )
                             })
@@ -231,7 +278,6 @@ const EditTaskWindow = () => {
                                 )
                             })
                         )
-
                     }
                 </div>
             </div>            

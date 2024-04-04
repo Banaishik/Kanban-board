@@ -24,7 +24,7 @@
 }
 
 .progress_complete {
-    width: 50%;
+    /* width: 50%; */
     height: 100%;
     background-color: #70D0E1;
     border-radius: 10px;
