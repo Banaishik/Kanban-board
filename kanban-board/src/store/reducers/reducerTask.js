@@ -1,7 +1,7 @@
 const defaultState = {
     plan : [
         {
-            id : 0,
+            id : 567,
             name : "First design concept",
             description : "first design concept design concept design concept design concept",
             topic : "UX design",
@@ -21,7 +21,8 @@ const defaultState = {
             ]
         }
     ],
-    process : [],
+    process : [
+    ],
     done : [],
     keyRerender : 1,
     currentEditingTask : null
@@ -73,12 +74,50 @@ const reducerTask = (state = defaultState, action) => {
         case "CHANGE_TASK_PLAN" :
             return {
                 ...state,
-                plan : [
-                    ...state.plan.filter(task => {
-                        return task.id !== action.payload.id
+                plan : state.plan.map(task => {
+                        if (task.id === action.payload.id) {
+                            return action.payload
+                        } else {
+                            return task
+                        }
                     }),
-                    action.payload
-                ]
+            }
+        case "CHANGE_TASK_PROCESS" :
+            return {
+                ...state,
+                process : state.process.map(task => {
+                        if (task.id === action.payload.id) {
+                            return action.payload
+                        } else {
+                            return task
+                        }
+                    }),
+            }
+        case "CHANGE_TASK_DONE" :
+            return {
+                ...state,
+                done : state.done.map(task => {
+                        if (task.id === action.payload.id) {
+                            return action.payload
+                        } else {
+                            return task
+                        }
+                    }),
+            }
+        case "CHANGE_PLAN" : 
+            return {
+                ...state, 
+                plan : action.payload
+            }
+        case "CHANGE_PROCESS" : 
+            return {
+                ...state, 
+                process : action.payload
+            }
+        case "CHANGE_DONE" : 
+            return {
+                ...state, 
+                done : action.payload
             }
         default :
             return state
